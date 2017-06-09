@@ -22,12 +22,17 @@ namespace slicerdycer
             {
                 { "amount", value.ToString() },
                 { "condition", ">" },
-                { "target", "49.5" }
+                { "target", "49" }
             };
             var content = new FormUrlEncodedContent(values);
 
             var response = client.PostAsync("https://api.primedice.com/api/bet?api_key=" + GlobalVar.api, content);
             return response.Result.ToString();
+        }
+        public static string getbets()
+        {
+            var response = client.GetStringAsync("https://api.primedice.com/api/mybets?api_key=" + GlobalVar.api);
+            return response.Result;
         }
     }
 }

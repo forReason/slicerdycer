@@ -21,18 +21,50 @@ namespace slicerdycer
         {
             InitializeComponent();
             balance.Text = GlobalVar.balance.ToString();
+            backgroundWorker1.WorkerReportsProgress = true;
+            backgroundWorker1.WorkerSupportsCancellation = true;
         }
-        
-        private Task<int> botting_logic()
-        {//main logic
+
+        private void updatevisual()
+        {
+            balance.Text = GlobalVar.balance.ToString();
+            betting.Text = GlobalVar.betting.ToString();
+            richTextBox1.Text = Networkhandler.getbets();
+
+
+        }
+        private void pausestart_Click(object sender, EventArgs e)
+        {
+            if (GlobalVar.pause == true)
+            {
+                GlobalVar.pause = false;
+                pausestart.Text = "pause";
+                backgroundWorker1.RunWorkerAsync();
+            }
+            else
+            {
+                GlobalVar.pause = true;
+                pausestart.Text = "start";
+            }
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        private delegate void InvokeDelegate();
+        private void backgroundWorker1_DoWork_1(object sender, DoWorkEventArgs e)
+        {
             while (GlobalVar.pause == false)
             {
                 //check if last transaction was positive or negative
                 string[] Settings = Regex.Replace(Networkhandler.get("users/1"), "\"", string.Empty).Split(',');
                 int tempbalance = (int)float.Parse(SettingsHandler.GetSettingFromAray("balance:", Settings));
-                if (tempbalance < GlobalVar.balance) {
+                if (tempbalance < GlobalVar.balance)
+                {
                     GlobalVar.positivetransaction = false;
-                } else
+                }
+                else
                 {
                     GlobalVar.positivetransaction = true;
                 }
@@ -56,54 +88,32 @@ namespace slicerdycer
                         GlobalVar.betting = GlobalVar.balance / GlobalVar.safety;
                         GlobalVar.firstnegative = true;
                     }
-                //if last bid was the first negative, dont rise to het the possible failovers higher
-                } else if (GlobalVar.firstnegative == true)
+                    //if last bid was the first negative, dont rise to het the possible failovers higher
+                }
+                else if (GlobalVar.firstnegative == true)
                 {
                     Networkhandler.bet(GlobalVar.betting);
                     GlobalVar.firstnegative = false;
-                } else
+                }
+                else
                 {//if more than hgalf of the deposits were eaten, only bate 1 for safety sake (only if safety treshold of 2048 is met)
-                    if ((GlobalVar.betting*2 > GlobalVar.balance / 2)&& GlobalVar.balance > GlobalVar.safety)
+                    if ((GlobalVar.betting * 2 > GlobalVar.balance / 2) && GlobalVar.balance > GlobalVar.safety)
                     {
                         Networkhandler.bet(1);
                         GlobalVar.firstnegative = false;
-                     //double the bid
-                    } else
+                        //double the bid
+                    }
+                    else
                     {
                         Networkhandler.bet(GlobalVar.betting * 2);
                         GlobalVar.firstnegative = false;
                     }
                 }
-                
+
                 Thread.Sleep(1000);
                 //updatevisual();
+                this.BeginInvoke(new InvokeDelegate(updatevisual));
             }
-            return null;
-        }
-        public void updatevisual()
-        {
-            balance.Text = GlobalVar.balance.ToString();
-            betting.Text = GlobalVar.betting.ToString();
-            Thread.Sleep(1000);
-        }
-        private void pausestart_Click(object sender, EventArgs e)
-        {
-            if (GlobalVar.pause == true)
-            {
-                GlobalVar.pause = false;
-                pausestart.Text = "pause";
-                Task.Run(botting_logic);
-            }
-            else
-            {
-                GlobalVar.pause = true;
-                pausestart.Text = "start";
-            }
-        }
-
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

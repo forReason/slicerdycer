@@ -10,6 +10,8 @@ namespace slicerdycer
     {
         public const string configPath = "Config.cfg";
         public const string botConfigPath = "config/config.json";
+
+        public static string htmlreturn = null;
         public static string api = null;
         public static string user = null;
         public static int balance = 0;
