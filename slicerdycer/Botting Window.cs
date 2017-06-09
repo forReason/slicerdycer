@@ -115,5 +115,10 @@ namespace slicerdycer
                 this.BeginInvoke(new InvokeDelegate(updatevisual));
             }
         }
+
+        private void Settings_Click(object sender, EventArgs e)
+        {
+            Application.Run(new Settings());
+        }
     }
 }

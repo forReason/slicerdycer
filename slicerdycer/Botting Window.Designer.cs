@@ -90,8 +90,9 @@
             this.Settings.Name = "Settings";
             this.Settings.Size = new System.Drawing.Size(75, 23);
             this.Settings.TabIndex = 5;
-            this.Settings.Text = "button1";
+            this.Settings.Text = "Settings";
             this.Settings.UseVisualStyleBackColor = true;
+            this.Settings.Click += new System.EventHandler(this.Settings_Click);
             // 
             // richTextBox1
             // 
