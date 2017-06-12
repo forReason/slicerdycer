@@ -36,7 +36,7 @@ namespace slicerdycer
             // if a setting was found, get the value
             if (temp != null)
             {
-                return (temp.Substring(setting.Length));
+                return (temp.Substring(setting.Length+1));
             }
             else
             {
@@ -66,7 +66,7 @@ namespace slicerdycer
             int index = Array.FindIndex(settings, s => s.Contains(setting));
             
             //replace setting in current settings
-            settings[index] = setting + value;
+            settings[index] = setting+" "+value;
 
             FileHandler.WriteFile(settings, path);
         }
@@ -79,9 +79,18 @@ namespace slicerdycer
             string[] standardSettings =
             {
                 "versionCheck true",
-                "username username",
-                "apikey api_key",
-                "rememberme false"
+                "username1 username",
+                "apikey1 api_key",
+                "username2 username",
+                "apikey2 api_key",
+                "username3 username",
+                "apikey3 api_key",
+                "username4 username",
+                "apikey4 api_key",
+                "username5 username",
+                "apikey5 api_key",
+                "username6 username",
+                "apikey6 api_key",
             };
             //used to determine later if updates to config were made -> exit
             Boolean exit = false;

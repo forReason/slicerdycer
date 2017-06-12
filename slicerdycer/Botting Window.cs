@@ -20,17 +20,34 @@ namespace slicerdycer
         public Botting_Window()
         {
             InitializeComponent();
-            balance.Text = GlobalVar.balance.ToString();
-            backgroundWorker1.WorkerReportsProgress = true;
-            backgroundWorker1.WorkerSupportsCancellation = true;
+            updatevisual();
+            groupBox1.Text = GlobalVar.user[0];
+            groupBox2.Text = GlobalVar.user[1];
+            groupBox3.Text = GlobalVar.user[2];
+            groupBox4.Text = GlobalVar.user[3];
+            groupBox5.Text = GlobalVar.user[4];
+            groupBox6.Text = GlobalVar.user[5];
         }
 
         private void updatevisual()
         {
-            balance.Text = GlobalVar.balance.ToString();
-            betting.Text = GlobalVar.betting.ToString();
-            richTextBox1.Text = Networkhandler.getbets();
+            balance1.Text = GlobalVar.balance[0].ToString();
+            betting1.Text = GlobalVar.betting[0].ToString();
 
+            balance2.Text = GlobalVar.balance[1].ToString();
+            betting2.Text = GlobalVar.betting[1].ToString();
+
+            balance3.Text = GlobalVar.balance[2].ToString();
+            betting3.Text = GlobalVar.betting[2].ToString();
+
+            balance4.Text = GlobalVar.balance[3].ToString();
+            betting4.Text = GlobalVar.betting[3].ToString();
+
+            balance5.Text = GlobalVar.balance[4].ToString();
+            betting5.Text = GlobalVar.betting[4].ToString();
+
+            balance6.Text = GlobalVar.balance[5].ToString();
+            betting6.Text = GlobalVar.betting[5].ToString();
 
         }
         private void pausestart_Click(object sender, EventArgs e)
@@ -56,69 +73,38 @@ namespace slicerdycer
         private void backgroundWorker1_DoWork_1(object sender, DoWorkEventArgs e)
         {
             while (GlobalVar.pause == false)
-            {
-                //check if last transaction was positive or negative
-                string[] Settings = Regex.Replace(Networkhandler.get("users/1"), "\"", string.Empty).Split(',');
-                int tempbalance = (int)float.Parse(SettingsHandler.GetSettingFromAray("balance:", Settings));
-                if (tempbalance < GlobalVar.balance)
+            {   
+                for (int i = 0; i<6; i++)
                 {
-                    GlobalVar.positivetransaction = false;
-                }
-                else
-                {
-                    GlobalVar.positivetransaction = true;
-                }
-                //set new balance
-                GlobalVar.balance = tempbalance;
-                Thread.Sleep(1000);
-                //if positive transaction 
-                if (GlobalVar.positivetransaction == true)
-                {
-                    //When balence/safety(2048) smaller than 1 satoshi, then bet an satoshi 
-                    if (GlobalVar.balance / GlobalVar.safety < 1)
+                    if (GlobalVar.api[i] != "api_key")
                     {
-                        Networkhandler.bet(1);
-                        GlobalVar.betting = 1;
-                        GlobalVar.firstnegative = true;
-                    }
-                    //otherwhise keep distance so that at least 12 times in a row can be a loss (happens 1 out of 4k rolls stochastically)
-                    else
-                    {
-                        Networkhandler.bet(GlobalVar.balance / GlobalVar.safety);
-                        GlobalVar.betting = GlobalVar.balance / GlobalVar.safety;
-                        GlobalVar.firstnegative = true;
-                    }
-                    //if last bid was the first negative, dont rise to het the possible failovers higher
-                }
-                else if (GlobalVar.firstnegative == true)
-                {
-                    Networkhandler.bet(GlobalVar.betting);
-                    GlobalVar.firstnegative = false;
-                }
-                else
-                {//if more than hgalf of the deposits were eaten, only bate 1 for safety sake (only if safety treshold of 2048 is met)
-                    if ((GlobalVar.betting * 2 > GlobalVar.balance / 2) && GlobalVar.balance > GlobalVar.safety)
-                    {
-                        Networkhandler.bet(1);
-                        GlobalVar.firstnegative = false;
-                        //double the bid
-                    }
-                    else
-                    {
-                        Networkhandler.bet(GlobalVar.betting * 2);
-                        GlobalVar.firstnegative = false;
+                        Program.ProgramLogic(i);
+                        //updatevisual();
+                        this.BeginInvoke(new InvokeDelegate(updatevisual));
+                        Thread.Sleep(1000);
                     }
                 }
-
-                Thread.Sleep(1000);
-                //updatevisual();
-                this.BeginInvoke(new InvokeDelegate(updatevisual));
             }
         }
 
         private void Settings_Click(object sender, EventArgs e)
         {
             Application.Run(new Settings());
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void betting_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void accountbutton_Click(object sender, EventArgs e)
+        {
+            //Application.Run(new loginwindow());
         }
     }
 }
