@@ -28,24 +28,27 @@ namespace slicerdycer
             withdrawpercent.Value = decimal.Parse(SettingsHandler.GetSettingValue("withdrawpercent"));
             enabledonating.Checked = bool.Parse(SettingsHandler.GetSettingValue("enabledonating"));
             donatepercent.Value = decimal.Parse(SettingsHandler.GetSettingValue("donatepercent"));
+            increasebetsecond.Checked = bool.Parse(SettingsHandler.GetSettingValue("increasebetsecond"));
+            usesafetyvalue.Checked = bool.Parse(SettingsHandler.GetSettingValue("usesafetyvalue"));
+            disablesafetyfirst.Checked = bool.Parse(SettingsHandler.GetSettingValue("disablesafetyfirstaccount"));
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox1_CheckedChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void Label1_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void discardbutton_Click(object sender, EventArgs e)
+        private void DiscardButton_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void safebutton_Click(object sender, EventArgs e)
+        private void SafeButton_Click(object sender, EventArgs e)
         {
             SettingsHandler.SetSetting("difficulty", difficultynumeric.Value.ToString());
             SettingsHandler.SetSetting("safetylevel", safetynumeric.Value.ToString());
@@ -60,6 +63,9 @@ namespace slicerdycer
             SettingsHandler.SetSetting("withdrawpercent", withdrawpercent.Value.ToString());
             SettingsHandler.SetSetting("enabledonating", enabledonating.Checked.ToString());
             SettingsHandler.SetSetting("donatepercent", donatepercent.Value.ToString());
+            SettingsHandler.SetSetting("increasebetsecond", increasebetsecond.Checked.ToString());
+            SettingsHandler.SetSetting("usesafetyvalue", usesafetyvalue.Checked.ToString());
+            SettingsHandler.SetSetting("disablesafetyfirstaccount", disablesafetyfirst.Checked.ToString());
             Program.Updatesettings();
             this.Close();
         }

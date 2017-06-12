@@ -12,7 +12,7 @@ namespace slicerdycer
             //find "setting" with value
             string temp = Array.Find(array, s => s.Contains(setting));
 
-            // if a setting was found, get the value
+            // if a setting was found, Get the value
             if (temp != null)
             {
                 return (temp.Substring(setting.Length));
@@ -33,7 +33,7 @@ namespace slicerdycer
             //find "setting" with value
             string temp = Array.Find(settings, s => s.Contains(setting));
 
-            // if a setting was found, get the value
+            // if a setting was found, Get the value
             if (temp != null)
             {
                 return (temp.Substring(setting.Length+1));
@@ -51,7 +51,7 @@ namespace slicerdycer
             //read in current settings
             string[] settings = FileHandler.ReadFile(path);
 
-            //get index of setting
+            //Get index of setting
             int index = Array.FindIndex(settings, s => s.Contains(setting));
 
             return (index);
@@ -62,7 +62,7 @@ namespace slicerdycer
             //read in current settings
             string[] settings = FileHandler.ReadFile(path);
 
-            //get index of setting
+            //Get index of setting
             int index = Array.FindIndex(settings, s => s.Contains(setting));
             
             //replace setting in current settings
@@ -80,6 +80,7 @@ namespace slicerdycer
             {
                 "# general settings",
                 "autoupdate true",
+                "rememberme true",
                 "difficulty 50",
                 "safetylevel 2048",
                 "useexploits false",
@@ -94,6 +95,10 @@ namespace slicerdycer
                 "withdrawpercent 1",
                 "enabledonating true",
                 "donatepercent 1",
+                "# tactical settings",
+                "increasebetsecond false",
+                "usesafetyvalue true",
+                "disablesafetyfirstaccount true",
                 "# Users",
                 "username1 username",
                 "apikey1 api_key",

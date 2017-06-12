@@ -37,6 +37,9 @@ namespace slicerdycer
         public static int withdrawpercent = 1;
         public static bool enabledonating = true;
         public static int donatepercent = 1;
+        public static bool increasebetsecond = false;
+        public static bool usesafetyvalue = true;
+        public static bool disablesafetyfirstaccount = true;
     };
 
     static class Program
@@ -48,8 +51,8 @@ namespace slicerdycer
         [STAThread]
         static void Main()
         {
-            Updatesettings();
             SettingsHandler.CheckSettings();
+            Updatesettings();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new loginwindow());
@@ -70,12 +73,15 @@ namespace slicerdycer
             GlobalVar.withdrawpercent = (int)decimal.Parse(SettingsHandler.GetSettingValue("withdrawpercent"));
             GlobalVar.enabledonating = bool.Parse(SettingsHandler.GetSettingValue("enabledonating"));
             GlobalVar.donatepercent = (int)decimal.Parse(SettingsHandler.GetSettingValue("donatepercent"));
+            GlobalVar.increasebetsecond = bool.Parse(SettingsHandler.GetSettingValue("increasebetsecond"));
+            GlobalVar.usesafetyvalue = bool.Parse(SettingsHandler.GetSettingValue("usesafetyvalue"));
+            GlobalVar.disablesafetyfirstaccount = bool.Parse(SettingsHandler.GetSettingValue("disablesafetyfirstaccount"));
         }
 
         public static void ProgramLogic(int user)
         {
             //check if last transaction was positive or negative
-            string[] Settings = Regex.Replace(Networkhandler.get("users/1", user), "\"", string.Empty).Split(',');
+            string[] Settings = Regex.Replace(Networkhandler.Get("users/1", user), "\"", string.Empty).Split(',');
             int tempbalance = (int)float.Parse(SettingsHandler.GetSettingFromAray("balance:", Settings));
             if (tempbalance < GlobalVar.balance[user])
             {
@@ -90,40 +96,40 @@ namespace slicerdycer
             //if positive transaction 
             if (GlobalVar.positivetransaction[user] == true)
             {
-                //When balence/safety(2048) smaller than 1 satoshi, then bet an satoshi 
-                if (GlobalVar.balance[user] / GlobalVar.safety < 1)
+                //When balence/safety(2048) smaller than 1 satoshi, then Bet an satoshi 
+                if ((GlobalVar.balance[user] / GlobalVar.safety) < 1 || GlobalVar.disablesafetyfirstaccount == true && user == 0)
                 {
-                    Networkhandler.bet(1, user);
+                    Networkhandler.Bet(1, user);
                     GlobalVar.betting[user] = 1;
                     GlobalVar.firstnegative[user] = true;
                 }
                 //otherwhise keep distance so that at least 12 times in a row can be a loss (happens 1 out of 4k rolls stochastically)
                 else
                 {
-                    Networkhandler.bet(GlobalVar.balance[user] / GlobalVar.safety, user);
+                    Networkhandler.Bet(GlobalVar.balance[user] / GlobalVar.safety, user);
                     GlobalVar.betting[user] = GlobalVar.balance[user] / GlobalVar.safety;
                     GlobalVar.firstnegative[user] = true;
                 }
                 //if last bid was the first negative, dont rise to het the possible failovers higher
             }
-            else if (GlobalVar.firstnegative[user] == true)
+            else if (GlobalVar.firstnegative[user] == true && GlobalVar.increasebetsecond == true)
             {
-                Networkhandler.bet(GlobalVar.betting[user], user);
-                GlobalVar.betting[user] = 1;
+                Networkhandler.Bet(GlobalVar.betting[user], user);
+                GlobalVar.betting[user] = GlobalVar.betting[user];
                 GlobalVar.firstnegative[user] = false;
             }
             else
-            {//if more than hgalf of the deposits were eaten, only bate 1 for safety sake (only if safety treshold of 2048 is met)
+            {//if more than half of the deposits were eaten, only Bet 1 for safety sake (only if safety treshold of 2048 is met)
                 if ((GlobalVar.betting[user] * 2 > GlobalVar.balance[user] / 2) && GlobalVar.balance[user] > GlobalVar.safety)
                 {
-                    Networkhandler.bet(1, user);
+                    Networkhandler.Bet(1, user);
                     GlobalVar.betting[user] = 1;
                     GlobalVar.firstnegative[user] = false;
                     //double the bid
                 }
                 else
                 {
-                    Networkhandler.bet(GlobalVar.betting[user] * 2, user);
+                    Networkhandler.Bet(GlobalVar.betting[user] * 2, user);
                     GlobalVar.betting[user] = GlobalVar.betting[user] * 2;
                     GlobalVar.firstnegative[user] = false;
                 }

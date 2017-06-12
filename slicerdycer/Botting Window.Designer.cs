@@ -78,7 +78,7 @@
             this.pausestart.TabIndex = 0;
             this.pausestart.Text = "Start";
             this.pausestart.UseVisualStyleBackColor = true;
-            this.pausestart.Click += new System.EventHandler(this.pausestart_Click);
+            this.pausestart.Click += new System.EventHandler(this.Pausestart_Click);
             // 
             // balancelabel
             // 
@@ -98,14 +98,14 @@
             this.balance1.TabIndex = 2;
             this.balance1.Text = "0";
             // 
-            // bet
+            // Bet
             // 
             this.bet.AutoSize = true;
             this.bet.Location = new System.Drawing.Point(6, 29);
-            this.bet.Name = "bet";
+            this.bet.Name = "Bet";
             this.bet.Size = new System.Drawing.Size(58, 13);
             this.bet.TabIndex = 3;
-            this.bet.Text = "current bet";
+            this.bet.Text = "current Bet";
             // 
             // betting1
             // 
@@ -115,7 +115,7 @@
             this.betting1.Size = new System.Drawing.Size(13, 13);
             this.betting1.TabIndex = 4;
             this.betting1.Text = "0";
-            this.betting1.Click += new System.EventHandler(this.betting_Click);
+            this.betting1.Click += new System.EventHandler(this.Betting_Click);
             // 
             // Settings
             // 
@@ -129,7 +129,7 @@
             // 
             // backgroundWorker1
             // 
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork_1);
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker1_DoWork_1);
             // 
             // groupBox1
             // 
@@ -143,7 +143,7 @@
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Account 1";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            this.groupBox1.Enter += new System.EventHandler(this.GroupBox1_Enter);
             // 
             // groupBox4
             // 
@@ -174,7 +174,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(58, 13);
             this.label2.TabIndex = 3;
-            this.label2.Text = "current bet";
+            this.label2.Text = "current Bet";
             // 
             // betting4
             // 
@@ -223,7 +223,7 @@
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(58, 13);
             this.label14.TabIndex = 3;
-            this.label14.Text = "current bet";
+            this.label14.Text = "current Bet";
             // 
             // betting2
             // 
@@ -272,7 +272,7 @@
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(58, 13);
             this.label18.TabIndex = 3;
-            this.label18.Text = "current bet";
+            this.label18.Text = "current Bet";
             // 
             // betting5
             // 
@@ -321,7 +321,7 @@
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(58, 13);
             this.label30.TabIndex = 3;
-            this.label30.Text = "current bet";
+            this.label30.Text = "current Bet";
             // 
             // betting3
             // 
@@ -370,7 +370,7 @@
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(58, 13);
             this.label34.TabIndex = 3;
-            this.label34.Text = "current bet";
+            this.label34.Text = "current Bet";
             // 
             // betting6
             // 
@@ -398,7 +398,7 @@
             this.accountbutton.TabIndex = 9;
             this.accountbutton.Text = "accounts";
             this.accountbutton.UseVisualStyleBackColor = true;
-            this.accountbutton.Click += new System.EventHandler(this.accountbutton_Click);
+            this.accountbutton.Click += new System.EventHandler(this.Accountbutton_Click);
             // 
             // Botting_Window
             // 

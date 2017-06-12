@@ -19,7 +19,7 @@ namespace slicerdycer
         {
             //set loginwindow
             InitializeComponent();
-            //get username etc (if safed)
+            //Get username etc (if safed)
             username1.Text = SettingsHandler.GetSettingValue("username1");
             apikey1.Text = SettingsHandler.GetSettingValue("apikey1");
 
@@ -112,7 +112,7 @@ namespace slicerdycer
             {
                 if (GlobalVar.api[i] != "api_key")
                 {
-                    string[] Settings = Regex.Replace(Networkhandler.get("users/1", i), "\"", string.Empty).Split(',');
+                    string[] Settings = Regex.Replace(Networkhandler.Get("users/1", i), "\"", string.Empty).Split(',');
                     GlobalVar.balance[i] = (int)float.Parse(SettingsHandler.GetSettingFromAray("balance:", Settings));
                     //Debug.WriteLine(GlobalVar.balance[i]);
                 }

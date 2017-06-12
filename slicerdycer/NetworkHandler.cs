@@ -7,11 +7,11 @@ namespace slicerdycer
     public class Networkhandler
     {
         private static readonly HttpClient client = new HttpClient();
-        public static string post()
+        public static string Post()
 	    {
             return "true";
 	    }
-        public static string get(string action, int user)
+        public static string Get(string action, int user)
         {
             var responseString = client.GetStringAsync("https://api.primedice.com/api/"+action+ "?api_key="+GlobalVar.api[user]);
             Debug.WriteLine(GlobalVar.user[user]);
@@ -19,7 +19,7 @@ namespace slicerdycer
             return responseString.Result;
             //return "hello";
         }
-        public static string bet(int value, int user)
+        public static string Bet(int value, int user)
         {
             var values = new Dictionary<string, string>
             {
@@ -29,10 +29,10 @@ namespace slicerdycer
             };
             var content = new FormUrlEncodedContent(values);
 
-            var response = client.PostAsync("https://api.primedice.com/api/bet?api_key=" + GlobalVar.api[user], content);
+            var response = client.PostAsync("https://api.primedice.com/api/Bet?api_key=" + GlobalVar.api[user], content);
             return response.Result.ToString();
         }
-        public static string getbets(int user)
+        public static string GetBets(int user)
         {
             var response = client.GetStringAsync("https://api.primedice.com/api/mybets?api_key=" + GlobalVar.api[user]);
             return response.Result;

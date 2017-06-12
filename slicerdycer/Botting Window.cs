@@ -20,7 +20,7 @@ namespace slicerdycer
         public Botting_Window()
         {
             InitializeComponent();
-            updatevisual();
+            Updatevisual();
             groupBox1.Text = GlobalVar.user[0];
             groupBox2.Text = GlobalVar.user[1];
             groupBox3.Text = GlobalVar.user[2];
@@ -29,7 +29,7 @@ namespace slicerdycer
             groupBox6.Text = GlobalVar.user[5];
         }
 
-        private void updatevisual()
+        private void Updatevisual()
         {
             balance1.Text = GlobalVar.balance[0].ToString();
             betting1.Text = GlobalVar.betting[0].ToString();
@@ -50,7 +50,7 @@ namespace slicerdycer
             betting6.Text = GlobalVar.betting[5].ToString();
 
         }
-        private void pausestart_Click(object sender, EventArgs e)
+        private void Pausestart_Click(object sender, EventArgs e)
         {
             if (GlobalVar.pause == true)
             {
@@ -65,12 +65,12 @@ namespace slicerdycer
             }
         }
 
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        private void RichTextBox1_TextChanged(object sender, EventArgs e)
         {
 
         }
         private delegate void InvokeDelegate();
-        private void backgroundWorker1_DoWork_1(object sender, DoWorkEventArgs e)
+        private void BackgroundWorker1_DoWork_1(object sender, DoWorkEventArgs e)
         {
             while (GlobalVar.pause == false)
             {   
@@ -78,10 +78,13 @@ namespace slicerdycer
                 {
                     if (GlobalVar.api[i] != "api_key")
                     {
-                        Program.ProgramLogic(i);
-                        //updatevisual();
-                        this.BeginInvoke(new InvokeDelegate(updatevisual));
-                        Thread.Sleep(1000);
+                        if (GlobalVar.balance[i] > 0)
+                        {
+                            Program.ProgramLogic(i);
+                            //Updatevisual();
+                            this.BeginInvoke(new InvokeDelegate(Updatevisual));
+                            Thread.Sleep(1000);
+                        }
                     }
                 }
             }
@@ -93,17 +96,17 @@ namespace slicerdycer
             settings.ShowDialog();
         }
 
-        private void groupBox1_Enter(object sender, EventArgs e)
+        private void GroupBox1_Enter(object sender, EventArgs e)
         {
 
         }
 
-        private void betting_Click(object sender, EventArgs e)
+        private void Betting_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void accountbutton_Click(object sender, EventArgs e)
+        private void Accountbutton_Click(object sender, EventArgs e)
         {
             loginwindow login = new loginwindow();
             login.ShowDialog();
