@@ -89,7 +89,8 @@ namespace slicerdycer
 
         private void Settings_Click(object sender, EventArgs e)
         {
-            Application.Run(new Settings());
+            Settings settings = new Settings();
+            settings.ShowDialog();
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -104,6 +105,8 @@ namespace slicerdycer
 
         private void accountbutton_Click(object sender, EventArgs e)
         {
+            loginwindow login = new loginwindow();
+            login.ShowDialog();
             //Application.Run(new loginwindow());
         }
     }
