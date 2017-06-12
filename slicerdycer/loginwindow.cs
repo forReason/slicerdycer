@@ -117,7 +117,6 @@ namespace slicerdycer
                     //Debug.WriteLine(GlobalVar.balance[i]);
                 }
             }
-
             //Debug.WriteLine(GlobalVar.balance);
             //start main botting window
             this.Close();

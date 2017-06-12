@@ -33,21 +33,27 @@ namespace slicerdycer
         {
             balance1.Text = GlobalVar.balance[0].ToString();
             betting1.Text = GlobalVar.betting[0].ToString();
+            groupBox1.Text = GlobalVar.user[0];
 
             balance2.Text = GlobalVar.balance[1].ToString();
             betting2.Text = GlobalVar.betting[1].ToString();
+            groupBox2.Text = GlobalVar.user[1];
 
             balance3.Text = GlobalVar.balance[2].ToString();
             betting3.Text = GlobalVar.betting[2].ToString();
+            groupBox3.Text = GlobalVar.user[2];
 
             balance4.Text = GlobalVar.balance[3].ToString();
             betting4.Text = GlobalVar.betting[3].ToString();
+            groupBox4.Text = GlobalVar.user[3];
 
             balance5.Text = GlobalVar.balance[4].ToString();
             betting5.Text = GlobalVar.betting[4].ToString();
+            groupBox5.Text = GlobalVar.user[4];
 
             balance6.Text = GlobalVar.balance[5].ToString();
             betting6.Text = GlobalVar.betting[5].ToString();
+            groupBox6.Text = GlobalVar.user[5];
 
         }
         private void Pausestart_Click(object sender, EventArgs e)
