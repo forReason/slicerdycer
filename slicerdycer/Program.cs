@@ -19,27 +19,59 @@ namespace slicerdycer
         public static int[] balance = { 0, 0, 0, 0, 0, 0 };
         public static int[] betting = { 0, 0, 0, 0, 0, 0 };
         
-        public static int safety = 2048;
         public static bool pause = true;
         public static bool[] firstnegative = { true, true, true, true, true, true };
         public static bool[] positivetransaction = { true, true, true, true, true, true };
+
+        //settings 
+        public static bool autoupdate = true;
+        public static int difficulty = 50;
+        public static int safety = 2048;
+        public static bool useexploits = false;
+        public static bool enabletipping = true;
+        public static string tippingaccount = "forReason";
+        public static int percenttotip = 1;
+        public static bool enablewithdraw = false;
+        public static string withdrawaddress = "123456789";
+        public static int withdrawtreshold = 40000000;
+        public static int withdrawpercent = 1;
+        public static bool enabledonating = true;
+        public static int donatepercent = 1;
     };
 
     static class Program
     {
-        
+
         /// <summary>
         /// Der Haupteinstiegspunkt für die Anwendung.
         /// </summary>
         [STAThread]
         static void Main()
         {
+            Updatesettings();
             SettingsHandler.CheckSettings();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new loginwindow());
             Application.Run(new Botting_Window());
         }
+        public static void Updatesettings()
+        {
+            GlobalVar.difficulty = (int)decimal.Parse(SettingsHandler.GetSettingValue("difficulty"));
+            GlobalVar.safety = (int)decimal.Parse(SettingsHandler.GetSettingValue("safetylevel"));
+            GlobalVar.useexploits = bool.Parse(SettingsHandler.GetSettingValue("useexploits"));
+            GlobalVar.autoupdate = bool.Parse(SettingsHandler.GetSettingValue("autoupdate"));
+            GlobalVar.enabletipping = bool.Parse(SettingsHandler.GetSettingValue("enabletipping"));
+            GlobalVar.tippingaccount = SettingsHandler.GetSettingValue("accounttotipto");
+            GlobalVar.percenttotip = (int)decimal.Parse(SettingsHandler.GetSettingValue("percenttotip"));
+            GlobalVar.enablewithdraw = bool.Parse(SettingsHandler.GetSettingValue("enablewithdraw"));
+            GlobalVar.withdrawaddress = SettingsHandler.GetSettingValue("withdrawadress");
+            GlobalVar.withdrawtreshold = (int)decimal.Parse(SettingsHandler.GetSettingValue("withdrawtreshold"));
+            GlobalVar.withdrawpercent = (int)decimal.Parse(SettingsHandler.GetSettingValue("withdrawpercent"));
+            GlobalVar.enabledonating = bool.Parse(SettingsHandler.GetSettingValue("enabledonating"));
+            GlobalVar.donatepercent = (int)decimal.Parse(SettingsHandler.GetSettingValue("donatepercent"));
+        }
+
         public static void ProgramLogic(int user)
         {
             //check if last transaction was positive or negative

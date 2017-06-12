@@ -60,6 +60,7 @@ namespace slicerdycer
             SettingsHandler.SetSetting("withdrawpercent", withdrawpercent.Value.ToString());
             SettingsHandler.SetSetting("enabledonating", enabledonating.Checked.ToString());
             SettingsHandler.SetSetting("donatepercent", donatepercent.Value.ToString());
+            Program.Updatesettings();
             this.Close();
         }
     }
