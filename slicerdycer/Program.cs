@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -117,7 +118,7 @@ namespace slicerdycer
                     tipamount = GlobalVar.maxtip;
                 }
                 //if private faucet is enabled and tipamount is not below tippingminimum of 1000 satoshi and self is eglible for private faucet
-                if (GlobalVar.privateFaucet == true && tipamount >= GlobalVar.mintip && user != 1 && GlobalVar.firstAccountFaucet == false)
+                if (GlobalVar.privateFaucet == true && tipamount >= GlobalVar.mintip && GlobalVar.firstAccountFaucet == true || user != 1)
                 {
                     //check if a user is eglibe for faucet
                     for (int i = 0; i < 6; i++)
@@ -132,11 +133,12 @@ namespace slicerdycer
                 //if privatefaucet is enabled and an eglible account is found and self is eglible (checked before)
                 if (eglibleUser != 10)
                 {
-                    Networkhandler.TipAnUser(tipamount, user, GlobalVar.user[user]);
+                    Networkhandler.TipAnUser(tipamount, user, GlobalVar.user[eglibleUser]);
                 }
                 //if tipping user not self place a tip on tipping user
                 else if (GlobalVar.tippingaccount != GlobalVar.user[user] && tipamount >= GlobalVar.mintip)
                 {
+                    Debug.WriteLine(GlobalVar.tippingaccount + " = " + GlobalVar.user[user]);
                     Networkhandler.TipAnUser(tipamount, user, GlobalVar.user[user]);
                 }
 

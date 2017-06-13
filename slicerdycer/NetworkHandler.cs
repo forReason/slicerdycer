@@ -39,6 +39,7 @@ namespace slicerdycer
         }
         public static string TipAnUser(int amount, int user, string userToTip )
         {
+            Debug.WriteLine(userToTip);
             var values = new Dictionary<string, string>
             {
                 { "user", userToTip},
@@ -46,6 +47,7 @@ namespace slicerdycer
             };
             var content = new FormUrlEncodedContent(values);
             var response = client.PostAsync("https://api.primedice.com/api/tip?api_key=" + GlobalVar.api[user], content);
+            Debug.WriteLine(response.Result.ToString());
             return response.Result.ToString();
         }
     }
