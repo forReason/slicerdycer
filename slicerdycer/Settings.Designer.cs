@@ -135,7 +135,6 @@
             this.label2.Size = new System.Drawing.Size(150, 13);
             this.label2.TabIndex = 4;
             this.label2.Text = "calc bet by factor x of balance";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // safetynumeric
             // 
@@ -189,7 +188,6 @@
             this.label4.Size = new System.Drawing.Size(69, 13);
             this.label4.TabIndex = 10;
             this.label4.Text = "percent to tip";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // percenttotip
             // 
@@ -197,7 +195,6 @@
             this.percenttotip.Name = "percenttotip";
             this.percenttotip.Size = new System.Drawing.Size(51, 20);
             this.percenttotip.TabIndex = 9;
-            this.percenttotip.ValueChanged += new System.EventHandler(this.percenttotip_ValueChanged);
             // 
             // label3
             // 
@@ -424,7 +421,6 @@
             this.usesafetyvalue.TabIndex = 1;
             this.usesafetyvalue.Text = "use safety value";
             this.usesafetyvalue.UseVisualStyleBackColor = true;
-            this.usesafetyvalue.CheckedChanged += new System.EventHandler(this.usesafetyvalue_CheckedChanged);
             // 
             // increasebetsecond
             // 
@@ -456,7 +452,6 @@
             this.tippingtreshold.Name = "tippingtreshold";
             this.tippingtreshold.Size = new System.Drawing.Size(120, 20);
             this.tippingtreshold.TabIndex = 12;
-            this.tippingtreshold.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // useprivatefaucetcheckbox
             // 

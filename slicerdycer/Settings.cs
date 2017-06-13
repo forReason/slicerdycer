@@ -77,30 +77,5 @@ namespace slicerdycer
             Program.Updatesettings();
             this.Close();
         }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void usesafetyvalue_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void percenttotip_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

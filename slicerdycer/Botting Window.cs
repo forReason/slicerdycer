@@ -71,10 +71,6 @@ namespace slicerdycer
             }
         }
 
-        private void RichTextBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
         private delegate void InvokeDelegate();
         private void BackgroundWorker1_DoWork_1(object sender, DoWorkEventArgs e)
         {
@@ -84,6 +80,12 @@ namespace slicerdycer
                 {
                     if (GlobalVar.api[i] != "api_key")
                     {
+                        //if balence = 0 -> update balance
+                        if (GlobalVar.balance[i] == 0)
+                        {
+                            string[] Settings = Regex.Replace(Networkhandler.Get("users/1", i), "\"", string.Empty).Split(',');
+                            GlobalVar.balance[i] = (int)float.Parse(SettingsHandler.GetSettingFromAray("balance:", Settings));
+                        }
                         if (GlobalVar.balance[i] > 0)
                         {
                             Program.ProgramLogic(i);
@@ -100,16 +102,6 @@ namespace slicerdycer
         {
             Settings settings = new Settings();
             settings.ShowDialog();
-        }
-
-        private void GroupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Betting_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void Accountbutton_Click(object sender, EventArgs e)

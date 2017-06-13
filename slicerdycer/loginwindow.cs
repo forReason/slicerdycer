@@ -46,17 +46,8 @@ namespace slicerdycer
                 Application.Exit();
             }
         }
-        private void login_Load(object sender, EventArgs e)
-        {
 
-        }
-
-        private void username_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void loginbutton_Click(object sender, EventArgs e)
+        private void Loginbutton_Click(object sender, EventArgs e)
         {
             //write values to settings based on "remember me checkbox"
             if (rememberbox.Checked==true)

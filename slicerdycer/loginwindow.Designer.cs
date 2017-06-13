@@ -63,7 +63,6 @@
             this.username1.Size = new System.Drawing.Size(100, 20);
             this.username1.TabIndex = 0;
             this.username1.Text = "username";
-            this.username1.TextChanged += new System.EventHandler(this.username_TextChanged);
             // 
             // apikey1
             // 
@@ -91,7 +90,7 @@
             this.loginbutton.TabIndex = 3;
             this.loginbutton.Text = "Login";
             this.loginbutton.UseVisualStyleBackColor = true;
-            this.loginbutton.Click += new System.EventHandler(this.loginbutton_Click);
+            this.loginbutton.Click += new System.EventHandler(this.Loginbutton_Click);
             // 
             // groupBox1
             // 
@@ -254,7 +253,6 @@
             this.Controls.Add(this.rememberbox);
             this.Name = "loginwindow";
             this.Text = "login";
-            this.Load += new System.EventHandler(this.login_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

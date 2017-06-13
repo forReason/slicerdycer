@@ -115,7 +115,6 @@
             this.betting1.Size = new System.Drawing.Size(13, 13);
             this.betting1.TabIndex = 4;
             this.betting1.Text = "0";
-            this.betting1.Click += new System.EventHandler(this.Betting_Click);
             // 
             // Settings
             // 
@@ -143,7 +142,6 @@
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Account 1";
-            this.groupBox1.Enter += new System.EventHandler(this.GroupBox1_Enter);
             // 
             // groupBox4
             // 
