@@ -165,8 +165,8 @@ namespace slicerdycer
                 //otherwhise keep distance so that at least 12 times in a row can be a loss (happens 1 out of 4k rolls stochastically)
                 else
                 {
-                    Networkhandler.Bet((int)(0.06 * Math.Pow(GlobalVar.balance[user], 0.5)+1), user);
-                    GlobalVar.betting[user] = (int)(0.06 * Math.Pow(GlobalVar.balance[user], 0.5) + 1);
+                    Networkhandler.Bet((int)(0.01 * Math.Pow(GlobalVar.balance[user], 0.6)+1), user);
+                    GlobalVar.betting[user] = (int)(0.01 * Math.Pow(GlobalVar.balance[user], 0.6) + 1);
                     GlobalVar.firstnegative[user] = true;
                 }
                 //if last bid was the first negative, dont rise to het the possible failovers higher
