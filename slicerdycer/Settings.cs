@@ -69,5 +69,15 @@ namespace slicerdycer
             Program.Updatesettings();
             this.Close();
         }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void usesafetyvalue_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

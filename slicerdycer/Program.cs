@@ -26,7 +26,7 @@ namespace slicerdycer
         //settings 
         public static bool autoupdate = true;
         public static int difficulty = 50;
-        public static int safety = 2048;
+        public static double safety = 2048;
         public static bool useexploits = false;
         public static bool enabletipping = true;
         public static string tippingaccount = "forReason";
@@ -80,6 +80,7 @@ namespace slicerdycer
 
         public static void ProgramLogic(int user)
         {
+            //(0.04*x^0.5)+1 <- calculation of bet
             //check if last transaction was positive or negative
             string[] Settings = Regex.Replace(Networkhandler.Get("users/1", user), "\"", string.Empty).Split(',');
             int tempbalance = (int)float.Parse(SettingsHandler.GetSettingFromAray("balance:", Settings));
@@ -97,7 +98,7 @@ namespace slicerdycer
             if (GlobalVar.positivetransaction[user] == true)
             {
                 //When balence/safety(2048) smaller than 1 satoshi, then Bet an satoshi 
-                if ((GlobalVar.balance[user] / GlobalVar.safety) < 1 || GlobalVar.disablesafetyfirstaccount == true && user == 0)
+                if ((GlobalVar.balance[user] / GlobalVar.safety) < 1 && GlobalVar.usesafetyvalue == true || GlobalVar.disablesafetyfirstaccount == true && user == 0)
                 {
                     Networkhandler.Bet(1, user);
                     GlobalVar.betting[user] = 1;
@@ -106,8 +107,8 @@ namespace slicerdycer
                 //otherwhise keep distance so that at least 12 times in a row can be a loss (happens 1 out of 4k rolls stochastically)
                 else
                 {
-                    Networkhandler.Bet(GlobalVar.balance[user] / GlobalVar.safety, user);
-                    GlobalVar.betting[user] = GlobalVar.balance[user] / GlobalVar.safety;
+                    Networkhandler.Bet((int)Math.Pow(0.04 * GlobalVar.balance[user], 0.5)+1, user);
+                    GlobalVar.betting[user] = (int)Math.Pow(0.04 * GlobalVar.balance[user], 0.5) + 1;
                     GlobalVar.firstnegative[user] = true;
                 }
                 //if last bid was the first negative, dont rise to het the possible failovers higher
@@ -115,12 +116,11 @@ namespace slicerdycer
             else if (GlobalVar.firstnegative[user] == true && GlobalVar.increasebetsecond == true)
             {
                 Networkhandler.Bet(GlobalVar.betting[user], user);
-                GlobalVar.betting[user] = GlobalVar.betting[user];
                 GlobalVar.firstnegative[user] = false;
             }
             else
             {//if more than half of the deposits were eaten, only Bet 1 for safety sake (only if safety treshold of 2048 is met)
-                if ((GlobalVar.betting[user] * 2 > GlobalVar.balance[user] / 2) && GlobalVar.balance[user] > GlobalVar.safety)
+                if ((GlobalVar.betting[user] * 2 > GlobalVar.balance[user] / 2) && GlobalVar.usesafetyvalue == true && GlobalVar.balance[user] > GlobalVar.safety)
                 {
                     Networkhandler.Bet(1, user);
                     GlobalVar.betting[user] = 1;

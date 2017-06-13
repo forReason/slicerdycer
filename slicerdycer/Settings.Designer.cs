@@ -56,9 +56,9 @@
             this.label5 = new System.Windows.Forms.Label();
             this.enablewithdrawcheckbox = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.disablesafetyfirst = new System.Windows.Forms.CheckBox();
             this.usesafetyvalue = new System.Windows.Forms.CheckBox();
             this.increasebetsecond = new System.Windows.Forms.CheckBox();
-            this.disablesafetyfirst = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.difficultynumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.safetynumeric)).BeginInit();
             this.multibotting.SuspendLayout();
@@ -124,9 +124,10 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(6, 47);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(64, 13);
+            this.label2.Size = new System.Drawing.Size(150, 13);
             this.label2.TabIndex = 4;
-            this.label2.Text = "safety value";
+            this.label2.Text = "calc bet by factor x of balance";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // safetynumeric
             // 
@@ -367,6 +368,16 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Tactical decisions";
             // 
+            // disablesafetyfirst
+            // 
+            this.disablesafetyfirst.AutoSize = true;
+            this.disablesafetyfirst.Location = new System.Drawing.Point(6, 64);
+            this.disablesafetyfirst.Name = "disablesafetyfirst";
+            this.disablesafetyfirst.Size = new System.Drawing.Size(195, 17);
+            this.disablesafetyfirst.TabIndex = 2;
+            this.disablesafetyfirst.Text = "disable safety value for first account";
+            this.disablesafetyfirst.UseVisualStyleBackColor = true;
+            // 
             // usesafetyvalue
             // 
             this.usesafetyvalue.AutoSize = true;
@@ -376,6 +387,7 @@
             this.usesafetyvalue.TabIndex = 1;
             this.usesafetyvalue.Text = "use safety value";
             this.usesafetyvalue.UseVisualStyleBackColor = true;
+            this.usesafetyvalue.CheckedChanged += new System.EventHandler(this.usesafetyvalue_CheckedChanged);
             // 
             // increasebetsecond
             // 
@@ -386,16 +398,6 @@
             this.increasebetsecond.TabIndex = 0;
             this.increasebetsecond.Text = "Increase Bet after second loss only";
             this.increasebetsecond.UseVisualStyleBackColor = true;
-            // 
-            // disablesafetyfirst
-            // 
-            this.disablesafetyfirst.AutoSize = true;
-            this.disablesafetyfirst.Location = new System.Drawing.Point(6, 64);
-            this.disablesafetyfirst.Name = "disablesafetyfirst";
-            this.disablesafetyfirst.Size = new System.Drawing.Size(195, 17);
-            this.disablesafetyfirst.TabIndex = 2;
-            this.disablesafetyfirst.Text = "disable safety value for first account";
-            this.disablesafetyfirst.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
