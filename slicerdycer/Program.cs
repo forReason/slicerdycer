@@ -41,6 +41,9 @@ namespace slicerdycer
         public static bool usesafetyvalue = true;
         public static bool disablesafetyfirstaccount = true;
         public static int minimumbet = 1;
+        public static int tippingtreshold = 10000;
+        public static bool privateFaucet = true;
+        public static bool firstAccountFaucet = false;
     };
 
     static class Program
@@ -78,12 +81,17 @@ namespace slicerdycer
             GlobalVar.usesafetyvalue = bool.Parse(SettingsHandler.GetSettingValue("usesafetyvalue"));
             GlobalVar.disablesafetyfirstaccount = bool.Parse(SettingsHandler.GetSettingValue("disablesafetyfirstaccount"));
             GlobalVar.minimumbet = (int)decimal.Parse(SettingsHandler.GetSettingValue("minimumbet"));
+            GlobalVar.tippingtreshold = (int)decimal.Parse(SettingsHandler.GetSettingValue("tippingtreshold"));
+            GlobalVar.privateFaucet = bool.Parse(SettingsHandler.GetSettingValue("privateFaucet"));
+            GlobalVar.firstAccountFaucet = bool.Parse(SettingsHandler.GetSettingValue("useFirstAccountAsFaucet"));
         }
 
         public static void ProgramLogic(int user)
         {
-            //(0.04*x^0.5)+1 <- calculation of bet
-            //check if last transaction was positive or negative
+            //eglible tipping user
+            int eglibleUser = 10;
+
+            //check if last transaction was positive or negative and set balance
             string[] Settings = Regex.Replace(Networkhandler.Get("users/1", user), "\"", string.Empty).Split(',');
             int tempbalance = (int)float.Parse(SettingsHandler.GetSettingFromAray("balance:", Settings));
             if (tempbalance < GlobalVar.balance[user])
@@ -96,6 +104,38 @@ namespace slicerdycer
             }
             //set new balance
             GlobalVar.balance[user] = tempbalance;
+
+            //tipping logic
+            if (GlobalVar.balance[user] > GlobalVar.tippingtreshold )
+            {
+                //if private faucet is enabled and self is eglible for private faucet
+                if (GlobalVar.privateFaucet == true && user != 1 && GlobalVar.firstAccountFaucet == false)
+                {
+                    //check if a user is eglibe for faucet
+                    for (int i = 0; i < 6; i++)
+                    {
+                        if (GlobalVar.api[i] != "api_key" && GlobalVar.balance[i] < GlobalVar.safety)
+                        {
+                            eglibleUser = i;
+                            i = 10;
+                        }
+                    }
+                }
+                //if privatefaucet is enabled and an eglible account is found and self is eglible (checked before)
+                if (eglibleUser != 10)
+                {
+                    Networkhandler.TipAnUser(GlobalVar.balance[user], user, GlobalVar.user[user]);
+                }
+                //if tipping user not self place a tip on tipping user
+                else if (GlobalVar.tippingaccount != GlobalVar.user[user])
+                {
+                    Networkhandler.TipAnUser(GlobalVar.balance[user], user, GlobalVar.user[user]);
+                }
+
+            }
+
+            //make a bet
+            //(0.04*x^0.5)+1 <- calculation of bet
             //if positive transaction 
             if (GlobalVar.positivetransaction[user] == true)
             {

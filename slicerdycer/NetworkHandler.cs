@@ -19,11 +19,11 @@ namespace slicerdycer
             return responseString.Result;
             //return "hello";
         }
-        public static string Bet(int value, int user)
+        public static string Bet(int amount, int user)
         {
             var values = new Dictionary<string, string>
             {
-                { "amount", value.ToString() },
+                { "amount", amount.ToString() },
                 { "condition", ">" },
                 { "target", "50" }
             };
@@ -36,6 +36,17 @@ namespace slicerdycer
         {
             var response = client.GetStringAsync("https://api.primedice.com/api/mybets?api_key=" + GlobalVar.api[user]);
             return response.Result;
+        }
+        public static string TipAnUser(int amount, int user, string userToTip )
+        {
+            var values = new Dictionary<string, string>
+            {
+                { "user", userToTip},
+                { "amount", amount.ToString() },
+            };
+            var content = new FormUrlEncodedContent(values);
+            var response = client.PostAsync("https://api.primedice.com/api/tip?api_key=" + GlobalVar.api[user], content);
+            return response.Result.ToString();
         }
     }
 }

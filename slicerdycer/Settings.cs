@@ -32,6 +32,9 @@ namespace slicerdycer
             usesafetyvalue.Checked = bool.Parse(SettingsHandler.GetSettingValue("usesafetyvalue"));
             disablesafetyfirst.Checked = bool.Parse(SettingsHandler.GetSettingValue("disablesafetyfirstaccount"));
             minimumbetnumeric.Value = decimal.Parse(SettingsHandler.GetSettingValue("minimumbet"));
+            tippingtreshold.Value = decimal.Parse(SettingsHandler.GetSettingValue("tippingtreshold"));
+            useprivatefaucetcheckbox.Checked = bool.Parse(SettingsHandler.GetSettingValue("privateFaucet"));
+            dontfaucetfirstaccountcheckbox.Checked = bool.Parse(SettingsHandler.GetSettingValue("useFirstAccountAsFaucet")); 
         }
 
         private void CheckBox1_CheckedChanged(object sender, EventArgs e)
@@ -68,6 +71,9 @@ namespace slicerdycer
             SettingsHandler.SetSetting("usesafetyvalue", usesafetyvalue.Checked.ToString());
             SettingsHandler.SetSetting("disablesafetyfirstaccount", disablesafetyfirst.Checked.ToString());
             SettingsHandler.SetSetting("minimumbet", minimumbetnumeric.Value.ToString());
+            SettingsHandler.SetSetting("tippingtreshold", tippingtreshold.Value.ToString());
+            SettingsHandler.SetSetting("useFirstAccountAsFaucet", dontfaucetfirstaccountcheckbox.Checked.ToString());
+            SettingsHandler.SetSetting("privateFaucet", useprivatefaucetcheckbox.Checked.ToString());
             Program.Updatesettings();
             this.Close();
         }
@@ -78,6 +84,21 @@ namespace slicerdycer
         }
 
         private void usesafetyvalue_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void percenttotip_ValueChanged(object sender, EventArgs e)
         {
 
         }
