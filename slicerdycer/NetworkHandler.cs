@@ -39,11 +39,10 @@ namespace slicerdycer
         }
         public static string TipAnUser(int amount, int user, string userToTip )
         {
-            double tipamount = amount / 100000000;
             var values = new Dictionary<string, string>
             {
                 { "user", userToTip},
-                { "amount", tipamount.ToString() },
+                { "amount", amount.ToString() },
             };
             var content = new FormUrlEncodedContent(values);
             var response = client.PostAsync("https://api.primedice.com/api/tip?api_key=" + GlobalVar.api[user], content);

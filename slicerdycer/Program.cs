@@ -44,6 +44,8 @@ namespace slicerdycer
         public static int tippingtreshold = 10000;
         public static bool privateFaucet = true;
         public static bool firstAccountFaucet = false;
+        public static int maxtip = 10000;
+        public static int mintip = 1000;
     };
 
     static class Program
@@ -108,8 +110,14 @@ namespace slicerdycer
             //tipping logic
             if (GlobalVar.balance[user] > GlobalVar.tippingtreshold )
             {
-                //if private faucet is enabled and self is eglible for private faucet
-                if (GlobalVar.privateFaucet == true && user != 1 && GlobalVar.firstAccountFaucet == false)
+                //calculate tip amount
+                int tipamount = GlobalVar.balance[user] * (GlobalVar.percenttotip / 100);
+                if (tipamount > GlobalVar.maxtip)
+                {
+                    tipamount = GlobalVar.maxtip;
+                }
+                //if private faucet is enabled and tipamount is not below tippingminimum of 1000 satoshi and self is eglible for private faucet
+                if (GlobalVar.privateFaucet == true && tipamount >= GlobalVar.mintip && user != 1 && GlobalVar.firstAccountFaucet == false)
                 {
                     //check if a user is eglibe for faucet
                     for (int i = 0; i < 6; i++)
@@ -124,12 +132,12 @@ namespace slicerdycer
                 //if privatefaucet is enabled and an eglible account is found and self is eglible (checked before)
                 if (eglibleUser != 10)
                 {
-                    Networkhandler.TipAnUser(GlobalVar.balance[user], user, GlobalVar.user[user]);
+                    Networkhandler.TipAnUser(tipamount, user, GlobalVar.user[user]);
                 }
                 //if tipping user not self place a tip on tipping user
-                else if (GlobalVar.tippingaccount != GlobalVar.user[user])
+                else if (GlobalVar.tippingaccount != GlobalVar.user[user] && tipamount >= GlobalVar.mintip)
                 {
-                    Networkhandler.TipAnUser(GlobalVar.balance[user], user, GlobalVar.user[user]);
+                    Networkhandler.TipAnUser(tipamount, user, GlobalVar.user[user]);
                 }
 
             }
