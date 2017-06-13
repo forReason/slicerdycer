@@ -31,7 +31,7 @@ namespace slicerdycer
         public static bool useexploits = false;
         public static bool enabletipping = true;
         public static string tippingaccount = "forReason";
-        public static int percenttotip = 1;
+        public static double percenttotip = 1;
         public static bool enablewithdraw = false;
         public static string withdrawaddress = "123456789";
         public static int withdrawtreshold = 40000000;
@@ -112,13 +112,13 @@ namespace slicerdycer
             if (GlobalVar.balance[user] > GlobalVar.tippingtreshold )
             {
                 //calculate tip amount
-                int tipamount = GlobalVar.balance[user] * (GlobalVar.percenttotip / 100);
+                int tipamount = (int)(GlobalVar.balance[user] * (GlobalVar.percenttotip / 100.00));
                 if (tipamount > GlobalVar.maxtip)
                 {
                     tipamount = GlobalVar.maxtip;
                 }
                 //if private faucet is enabled and tipamount is not below tippingminimum of 1000 satoshi and self is eglible for private faucet
-                if (GlobalVar.privateFaucet == true && tipamount >= GlobalVar.mintip && GlobalVar.firstAccountFaucet == true || user != 1)
+                if (GlobalVar.privateFaucet == true && tipamount >= GlobalVar.mintip && (GlobalVar.firstAccountFaucet == true || user != 1))
                 {
                     //check if a user is eglibe for faucet
                     for (int i = 0; i < 6; i++)
@@ -138,8 +138,7 @@ namespace slicerdycer
                 //if tipping user not self place a tip on tipping user
                 else if (GlobalVar.tippingaccount != GlobalVar.user[user] && tipamount >= GlobalVar.mintip)
                 {
-                    Debug.WriteLine(GlobalVar.tippingaccount + " = " + GlobalVar.user[user]);
-                    Networkhandler.TipAnUser(tipamount, user, GlobalVar.user[user]);
+                    Networkhandler.TipAnUser(tipamount, user, GlobalVar.tippingaccount);
                 }
 
             }
