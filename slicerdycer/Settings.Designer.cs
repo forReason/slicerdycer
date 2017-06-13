@@ -59,6 +59,8 @@
             this.disablesafetyfirst = new System.Windows.Forms.CheckBox();
             this.usesafetyvalue = new System.Windows.Forms.CheckBox();
             this.increasebetsecond = new System.Windows.Forms.CheckBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.minimumbetnumeric = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.difficultynumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.safetynumeric)).BeginInit();
             this.multibotting.SuspendLayout();
@@ -70,6 +72,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.withdrawpercent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.withdrawtreshold)).BeginInit();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.minimumbetnumeric)).BeginInit();
             this.SuspendLayout();
             // 
             // discardbutton
@@ -358,6 +361,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.minimumbetnumeric);
+            this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.disablesafetyfirst);
             this.groupBox2.Controls.Add(this.usesafetyvalue);
             this.groupBox2.Controls.Add(this.increasebetsecond);
@@ -399,6 +404,27 @@
             this.increasebetsecond.Text = "Increase Bet after second loss only";
             this.increasebetsecond.UseVisualStyleBackColor = true;
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(7, 88);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(67, 13);
+            this.label9.TabIndex = 3;
+            this.label9.Text = "Minimum Bet";
+            // 
+            // minimumbetnumeric
+            // 
+            this.minimumbetnumeric.Location = new System.Drawing.Point(81, 86);
+            this.minimumbetnumeric.Maximum = new decimal(new int[] {
+            1410065408,
+            2,
+            0,
+            0});
+            this.minimumbetnumeric.Name = "minimumbetnumeric";
+            this.minimumbetnumeric.Size = new System.Drawing.Size(120, 20);
+            this.minimumbetnumeric.TabIndex = 4;
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -428,6 +454,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.withdrawtreshold)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.minimumbetnumeric)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -465,5 +492,7 @@
         private System.Windows.Forms.CheckBox usesafetyvalue;
         private System.Windows.Forms.CheckBox increasebetsecond;
         private System.Windows.Forms.CheckBox disablesafetyfirst;
+        private System.Windows.Forms.NumericUpDown minimumbetnumeric;
+        private System.Windows.Forms.Label label9;
     }
 }

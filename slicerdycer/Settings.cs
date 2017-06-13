@@ -31,6 +31,7 @@ namespace slicerdycer
             increasebetsecond.Checked = bool.Parse(SettingsHandler.GetSettingValue("increasebetsecond"));
             usesafetyvalue.Checked = bool.Parse(SettingsHandler.GetSettingValue("usesafetyvalue"));
             disablesafetyfirst.Checked = bool.Parse(SettingsHandler.GetSettingValue("disablesafetyfirstaccount"));
+            minimumbetnumeric.Value = decimal.Parse(SettingsHandler.GetSettingValue("minimumbet"));
         }
 
         private void CheckBox1_CheckedChanged(object sender, EventArgs e)
@@ -66,6 +67,7 @@ namespace slicerdycer
             SettingsHandler.SetSetting("increasebetsecond", increasebetsecond.Checked.ToString());
             SettingsHandler.SetSetting("usesafetyvalue", usesafetyvalue.Checked.ToString());
             SettingsHandler.SetSetting("disablesafetyfirstaccount", disablesafetyfirst.Checked.ToString());
+            SettingsHandler.SetSetting("minimumbet", minimumbetnumeric.Value.ToString());
             Program.Updatesettings();
             this.Close();
         }

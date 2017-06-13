@@ -99,6 +99,7 @@ namespace slicerdycer
                 "increasebetsecond false",
                 "usesafetyvalue true",
                 "disablesafetyfirstaccount true",
+                "minimumbet 1",
                 "# Users",
                 "username1 username",
                 "apikey1 api_key",

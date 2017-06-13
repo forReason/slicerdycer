@@ -40,6 +40,7 @@ namespace slicerdycer
         public static bool increasebetsecond = false;
         public static bool usesafetyvalue = true;
         public static bool disablesafetyfirstaccount = true;
+        public static int minimumbet = 1;
     };
 
     static class Program
@@ -76,6 +77,7 @@ namespace slicerdycer
             GlobalVar.increasebetsecond = bool.Parse(SettingsHandler.GetSettingValue("increasebetsecond"));
             GlobalVar.usesafetyvalue = bool.Parse(SettingsHandler.GetSettingValue("usesafetyvalue"));
             GlobalVar.disablesafetyfirstaccount = bool.Parse(SettingsHandler.GetSettingValue("disablesafetyfirstaccount"));
+            GlobalVar.minimumbet = (int)decimal.Parse(SettingsHandler.GetSettingValue("minimumbet"));
         }
 
         public static void ProgramLogic(int user)
@@ -98,10 +100,18 @@ namespace slicerdycer
             if (GlobalVar.positivetransaction[user] == true)
             {
                 //When balence/safety(2048) smaller than 1 satoshi, then Bet an satoshi 
-                if ((GlobalVar.balance[user] / GlobalVar.safety) < 1 && GlobalVar.usesafetyvalue == true || GlobalVar.disablesafetyfirstaccount == true && user == 0)
+                if ((GlobalVar.balance[user] / GlobalVar.safety) < GlobalVar.minimumbet && GlobalVar.usesafetyvalue == true || GlobalVar.disablesafetyfirstaccount == true && user == 0)
                 {
-                    Networkhandler.Bet(1, user);
-                    GlobalVar.betting[user] = 1;
+                    if (GlobalVar.balance[user] > GlobalVar.minimumbet)
+                    {
+                        Networkhandler.Bet(GlobalVar.minimumbet, user);
+                        GlobalVar.betting[user] = GlobalVar.minimumbet;
+                    }
+                    else
+                    {
+                        Networkhandler.Bet(1, user);
+                        GlobalVar.betting[user] = 1;
+                    }
                     GlobalVar.firstnegative[user] = true;
                 }
                 //otherwhise keep distance so that at least 12 times in a row can be a loss (happens 1 out of 4k rolls stochastically)
