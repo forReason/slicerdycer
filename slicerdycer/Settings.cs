@@ -36,7 +36,7 @@ namespace slicerdycer
             useprivatefaucetcheckbox.Checked = bool.Parse(SettingsHandler.GetSettingValue("privateFaucet"));
             dontfaucetfirstaccountcheckbox.Checked = bool.Parse(SettingsHandler.GetSettingValue("useFirstAccountAsFaucet"));
             faucettresholdnumeric.Value = decimal.Parse(SettingsHandler.GetSettingValue("faucetTreshold"));
-            faucetamountnumeric.Value = decimal.Parse(SettingsHandler.GetSettingValue("fauctAmount"));
+            faucetamountnumeric.Value = decimal.Parse(SettingsHandler.GetSettingValue("faucetAmount"));
         }
 
         private void CheckBox1_CheckedChanged(object sender, EventArgs e)
