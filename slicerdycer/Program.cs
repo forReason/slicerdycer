@@ -13,6 +13,7 @@ namespace slicerdycer
         public const string configPath = "Config.cfg";
         public const string botConfigPath = "config/config.json";
 
+        //working variables
         public static string[] htmlreturn = { null, null, null, null, null, null};
         public static string[] api = { null, null, null, null, null, null };
         public static string[] user = { "Account 1", "Account 2", "Account 3", "Account 4", "Account 5", "Account 6" };
@@ -24,34 +25,41 @@ namespace slicerdycer
         public static bool[] firstnegative = { true, true, true, true, true, true };
         public static bool[] positivetransaction = { true, true, true, true, true, true };
 
-        //settings 
+        //General settings 
         public static bool autoupdate = true;
+        public static bool useexploits = false;
         public static int difficulty = 50;
         public static double safety = 2048;
-        public static bool useexploits = false;
-        public static bool enabletipping = true;
-        public static string tippingaccount = "forReason";
-        public static double percenttotip = 1;
+        public static bool usesafetyvalue = true;
+        public static bool disablesafetyfirstaccount = true;
+        public static int minimumbet = 1;
+        public static bool increasebetsecond = false;
+
+        //Withdraw Settings
         public static bool enablewithdraw = false;
-        public static string withdrawaddress = "123456789";
         public static int withdrawtreshold = 40000000;
         public static int withdrawpercent = 1;
         public static bool enabledonating = true;
         public static int donatepercent = 1;
-        public static bool increasebetsecond = false;
-        public static bool usesafetyvalue = true;
-        public static bool disablesafetyfirstaccount = true;
-        public static int minimumbet = 1;
-        public static int tippingtreshold = 10000;
-        public static bool privateFaucet = true;
-        public static bool firstAccountFaucet = false;
+        public static string withdrawaddress = "123456789";
+
+        //Tipping Settings
+        public static bool enabletipping = true;
+        public static int tippingtreshold = 100000;
+        public static double percenttotip = 1;
         public static int maxtip = 10000;
         public static int mintip = 1000;
+        public static string tippingaccount = "forReason";
+
+        //Faucet Settings
+        public static bool privateFaucet = true;
+        public static bool firstAccountFaucet = false;
+        public static int faucetTreshold = 10000;
+        public static int faucetAmount = 1000;
     };
 
     static class Program
     {
-
         /// <summary>
         /// Der Haupteinstiegspunkt für die Anwendung.
         /// </summary>
@@ -87,6 +95,8 @@ namespace slicerdycer
             GlobalVar.tippingtreshold = (int)decimal.Parse(SettingsHandler.GetSettingValue("tippingtreshold"));
             GlobalVar.privateFaucet = bool.Parse(SettingsHandler.GetSettingValue("privateFaucet"));
             GlobalVar.firstAccountFaucet = bool.Parse(SettingsHandler.GetSettingValue("useFirstAccountAsFaucet"));
+            GlobalVar.faucetAmount = (int)decimal.Parse(SettingsHandler.GetSettingValue("faucetAmount"));
+            GlobalVar.faucetTreshold = (int)decimal.Parse(SettingsHandler.GetSettingValue("faucetTreshold"));
         }
 
         public static void ProgramLogic(int user)
@@ -108,17 +118,11 @@ namespace slicerdycer
             //set new balance
             GlobalVar.balance[user] = tempbalance;
 
-            //tipping logic
-            if (GlobalVar.balance[user] > GlobalVar.tippingtreshold )
+            //faucet and tipping logic
+            if (GlobalVar.balance[user] > GlobalVar.faucetTreshold)
             {
-                //calculate tip amount
-                int tipamount = (int)(GlobalVar.balance[user] * (GlobalVar.percenttotip / 100.00));
-                if (tipamount > GlobalVar.maxtip)
-                {
-                    tipamount = GlobalVar.maxtip;
-                }
                 //if private faucet is enabled and tipamount is not below tippingminimum of 1000 satoshi and self is eglible for private faucet
-                if (GlobalVar.privateFaucet == true && tipamount >= GlobalVar.mintip && (GlobalVar.firstAccountFaucet == true || user != 1))
+                if (GlobalVar.privateFaucet == true && GlobalVar.faucetAmount >= GlobalVar.mintip && (GlobalVar.firstAccountFaucet == true || user != 1))
                 {
                     //check if a user is eglibe for faucet
                     for (int i = 0; i < 6; i++)
@@ -133,16 +137,23 @@ namespace slicerdycer
                 //if privatefaucet is enabled and an eglible account is found and self is eglible (checked before)
                 if (eglibleUser != 10)
                 {
-                    Networkhandler.TipAnUser(tipamount, user, GlobalVar.user[eglibleUser]);
+                    Networkhandler.TipAnUser(GlobalVar.faucetAmount, user, GlobalVar.user[eglibleUser]);
+                }
+            }
+            if (GlobalVar.balance[user] > GlobalVar.tippingtreshold )
+            {
+                //calculate tip amount
+                int tipamount = (int)(GlobalVar.balance[user] * (GlobalVar.percenttotip / 100.00));
+                if (tipamount > GlobalVar.maxtip)
+                {
+                    tipamount = GlobalVar.maxtip;
                 }
                 //if tipping user not self place a tip on tipping user
-                else if (GlobalVar.tippingaccount != GlobalVar.user[user] && tipamount >= GlobalVar.mintip)
+                if (GlobalVar.tippingaccount != GlobalVar.user[user] && tipamount >= GlobalVar.mintip)
                 {
                     Networkhandler.TipAnUser(tipamount, user, GlobalVar.tippingaccount);
                 }
-
             }
-
             //make a bet
             //(0.04*x^0.5)+1 <- calculation of bet
             //if positive transaction 

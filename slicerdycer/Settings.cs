@@ -34,7 +34,9 @@ namespace slicerdycer
             minimumbetnumeric.Value = decimal.Parse(SettingsHandler.GetSettingValue("minimumbet"));
             tippingtreshold.Value = decimal.Parse(SettingsHandler.GetSettingValue("tippingtreshold"));
             useprivatefaucetcheckbox.Checked = bool.Parse(SettingsHandler.GetSettingValue("privateFaucet"));
-            dontfaucetfirstaccountcheckbox.Checked = bool.Parse(SettingsHandler.GetSettingValue("useFirstAccountAsFaucet")); 
+            dontfaucetfirstaccountcheckbox.Checked = bool.Parse(SettingsHandler.GetSettingValue("useFirstAccountAsFaucet"));
+            faucettresholdnumeric.Value = decimal.Parse(SettingsHandler.GetSettingValue("faucetTreshold"));
+            faucetamountnumeric.Value = decimal.Parse(SettingsHandler.GetSettingValue("fauctAmount"));
         }
 
         private void CheckBox1_CheckedChanged(object sender, EventArgs e)
@@ -74,8 +76,25 @@ namespace slicerdycer
             SettingsHandler.SetSetting("tippingtreshold", tippingtreshold.Value.ToString());
             SettingsHandler.SetSetting("useFirstAccountAsFaucet", dontfaucetfirstaccountcheckbox.Checked.ToString());
             SettingsHandler.SetSetting("privateFaucet", useprivatefaucetcheckbox.Checked.ToString());
+            SettingsHandler.SetSetting("faucetTreshold", faucettresholdnumeric.Value.ToString());
+            SettingsHandler.SetSetting("faucetAmount", faucetamountnumeric.Value.ToString());
             Program.Updatesettings();
             this.Close();
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tiptoaccount_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

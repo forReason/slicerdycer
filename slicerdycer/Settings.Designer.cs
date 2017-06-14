@@ -36,6 +36,8 @@
             this.safetynumeric = new System.Windows.Forms.NumericUpDown();
             this.enabletipping = new System.Windows.Forms.CheckBox();
             this.multibotting = new System.Windows.Forms.GroupBox();
+            this.tippingtreshold = new System.Windows.Forms.NumericUpDown();
+            this.label10 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.percenttotip = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
@@ -56,18 +58,23 @@
             this.label5 = new System.Windows.Forms.Label();
             this.enablewithdrawcheckbox = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.dontfaucetfirstaccountcheckbox = new System.Windows.Forms.CheckBox();
+            this.useprivatefaucetcheckbox = new System.Windows.Forms.CheckBox();
             this.minimumbetnumeric = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
             this.disablesafetyfirst = new System.Windows.Forms.CheckBox();
             this.usesafetyvalue = new System.Windows.Forms.CheckBox();
             this.increasebetsecond = new System.Windows.Forms.CheckBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.tippingtreshold = new System.Windows.Forms.NumericUpDown();
-            this.useprivatefaucetcheckbox = new System.Windows.Forms.CheckBox();
-            this.dontfaucetfirstaccountcheckbox = new System.Windows.Forms.CheckBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.faucettresholdnumeric = new System.Windows.Forms.NumericUpDown();
+            this.label12 = new System.Windows.Forms.Label();
+            this.faucetamountnumeric = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.difficultynumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.safetynumeric)).BeginInit();
             this.multibotting.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tippingtreshold)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.percenttotip)).BeginInit();
             this.generalbox.SuspendLayout();
             this.withdrawbox.SuspendLayout();
@@ -77,7 +84,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.withdrawtreshold)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.minimumbetnumeric)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tippingtreshold)).BeginInit();
+            this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.faucettresholdnumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.faucetamountnumeric)).BeginInit();
             this.SuspendLayout();
             // 
             // discardbutton
@@ -156,7 +166,7 @@
             // enabletipping
             // 
             this.enabletipping.AutoSize = true;
-            this.enabletipping.Location = new System.Drawing.Point(5, 16);
+            this.enabletipping.Location = new System.Drawing.Point(9, 19);
             this.enabletipping.Name = "enabletipping";
             this.enabletipping.Size = new System.Drawing.Size(92, 17);
             this.enabletipping.TabIndex = 6;
@@ -166,24 +176,41 @@
             // 
             // multibotting
             // 
-            this.multibotting.Controls.Add(this.tippingtreshold);
-            this.multibotting.Controls.Add(this.label10);
-            this.multibotting.Controls.Add(this.label4);
-            this.multibotting.Controls.Add(this.percenttotip);
-            this.multibotting.Controls.Add(this.label3);
-            this.multibotting.Controls.Add(this.tiptoaccount);
-            this.multibotting.Controls.Add(this.enabletipping);
-            this.multibotting.Location = new System.Drawing.Point(12, 154);
+            this.multibotting.Controls.Add(this.groupBox4);
+            this.multibotting.Controls.Add(this.groupBox3);
+            this.multibotting.Location = new System.Drawing.Point(6, 260);
             this.multibotting.Name = "multibotting";
-            this.multibotting.Size = new System.Drawing.Size(260, 100);
+            this.multibotting.Size = new System.Drawing.Size(512, 151);
             this.multibotting.TabIndex = 7;
             this.multibotting.TabStop = false;
             this.multibotting.Text = "Multibotting";
             // 
+            // tippingtreshold
+            // 
+            this.tippingtreshold.Location = new System.Drawing.Point(118, 94);
+            this.tippingtreshold.Maximum = new decimal(new int[] {
+            1000000000,
+            0,
+            0,
+            0});
+            this.tippingtreshold.Name = "tippingtreshold";
+            this.tippingtreshold.Size = new System.Drawing.Size(120, 20);
+            this.tippingtreshold.TabIndex = 12;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(6, 96);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(44, 13);
+            this.label10.TabIndex = 11;
+            this.label10.Text = "treshold";
+            this.label10.Click += new System.EventHandler(this.label10_Click);
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(121, 17);
+            this.label4.Location = new System.Drawing.Point(6, 70);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(69, 13);
             this.label4.TabIndex = 10;
@@ -191,7 +218,7 @@
             // 
             // percenttotip
             // 
-            this.percenttotip.Location = new System.Drawing.Point(199, 15);
+            this.percenttotip.Location = new System.Drawing.Point(187, 68);
             this.percenttotip.Name = "percenttotip";
             this.percenttotip.Size = new System.Drawing.Size(51, 20);
             this.percenttotip.TabIndex = 9;
@@ -199,18 +226,20 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 43);
+            this.label3.Location = new System.Drawing.Point(6, 45);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(65, 13);
             this.label3.TabIndex = 8;
             this.label3.Text = "user to tip to";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // tiptoaccount
             // 
-            this.tiptoaccount.Location = new System.Drawing.Point(95, 40);
+            this.tiptoaccount.Location = new System.Drawing.Point(83, 42);
             this.tiptoaccount.Name = "tiptoaccount";
             this.tiptoaccount.Size = new System.Drawing.Size(155, 20);
             this.tiptoaccount.TabIndex = 7;
+            this.tiptoaccount.TextChanged += new System.EventHandler(this.tiptoaccount_TextChanged);
             // 
             // generalbox
             // 
@@ -358,7 +387,7 @@
             // enablewithdrawcheckbox
             // 
             this.enablewithdrawcheckbox.AutoSize = true;
-            this.enablewithdrawcheckbox.Location = new System.Drawing.Point(135, 20);
+            this.enablewithdrawcheckbox.Location = new System.Drawing.Point(147, 18);
             this.enablewithdrawcheckbox.Name = "enablewithdrawcheckbox";
             this.enablewithdrawcheckbox.Size = new System.Drawing.Size(103, 17);
             this.enablewithdrawcheckbox.TabIndex = 0;
@@ -367,9 +396,8 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.dontfaucetfirstaccountcheckbox);
-            this.groupBox2.Controls.Add(this.useprivatefaucetcheckbox);
             this.groupBox2.Controls.Add(this.minimumbetnumeric);
+            this.groupBox2.Controls.Add(this.multibotting);
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.disablesafetyfirst);
             this.groupBox2.Controls.Add(this.usesafetyvalue);
@@ -380,6 +408,26 @@
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Tactical decisions";
+            // 
+            // dontfaucetfirstaccountcheckbox
+            // 
+            this.dontfaucetfirstaccountcheckbox.AutoSize = true;
+            this.dontfaucetfirstaccountcheckbox.Location = new System.Drawing.Point(133, 19);
+            this.dontfaucetfirstaccountcheckbox.Name = "dontfaucetfirstaccountcheckbox";
+            this.dontfaucetfirstaccountcheckbox.Size = new System.Drawing.Size(111, 17);
+            this.dontfaucetfirstaccountcheckbox.TabIndex = 6;
+            this.dontfaucetfirstaccountcheckbox.Text = "allow first account";
+            this.dontfaucetfirstaccountcheckbox.UseVisualStyleBackColor = true;
+            // 
+            // useprivatefaucetcheckbox
+            // 
+            this.useprivatefaucetcheckbox.AutoSize = true;
+            this.useprivatefaucetcheckbox.Location = new System.Drawing.Point(6, 19);
+            this.useprivatefaucetcheckbox.Name = "useprivatefaucetcheckbox";
+            this.useprivatefaucetcheckbox.Size = new System.Drawing.Size(111, 17);
+            this.useprivatefaucetcheckbox.TabIndex = 5;
+            this.useprivatefaucetcheckbox.Text = "use private faucet";
+            this.useprivatefaucetcheckbox.UseVisualStyleBackColor = true;
             // 
             // minimumbetnumeric
             // 
@@ -432,46 +480,78 @@
             this.increasebetsecond.Text = "Increase Bet after second loss only";
             this.increasebetsecond.UseVisualStyleBackColor = true;
             // 
-            // label10
+            // groupBox3
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(9, 68);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(44, 13);
-            this.label10.TabIndex = 11;
-            this.label10.Text = "treshold";
+            this.groupBox3.Controls.Add(this.faucetamountnumeric);
+            this.groupBox3.Controls.Add(this.label12);
+            this.groupBox3.Controls.Add(this.faucettresholdnumeric);
+            this.groupBox3.Controls.Add(this.label11);
+            this.groupBox3.Controls.Add(this.dontfaucetfirstaccountcheckbox);
+            this.groupBox3.Controls.Add(this.useprivatefaucetcheckbox);
+            this.groupBox3.Location = new System.Drawing.Point(256, 19);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(250, 127);
+            this.groupBox3.TabIndex = 13;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Private Faucet";
             // 
-            // tippingtreshold
+            // groupBox4
             // 
-            this.tippingtreshold.Location = new System.Drawing.Point(130, 66);
-            this.tippingtreshold.Maximum = new decimal(new int[] {
+            this.groupBox4.Controls.Add(this.enabletipping);
+            this.groupBox4.Controls.Add(this.tippingtreshold);
+            this.groupBox4.Controls.Add(this.label10);
+            this.groupBox4.Controls.Add(this.label3);
+            this.groupBox4.Controls.Add(this.tiptoaccount);
+            this.groupBox4.Controls.Add(this.label4);
+            this.groupBox4.Controls.Add(this.percenttotip);
+            this.groupBox4.Location = new System.Drawing.Point(6, 19);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(244, 127);
+            this.groupBox4.TabIndex = 14;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Tipping";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 45);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(44, 13);
+            this.label11.TabIndex = 7;
+            this.label11.Text = "treshold";
+            // 
+            // faucettresholdnumeric
+            // 
+            this.faucettresholdnumeric.Location = new System.Drawing.Point(124, 43);
+            this.faucettresholdnumeric.Maximum = new decimal(new int[] {
             1000000000,
             0,
             0,
             0});
-            this.tippingtreshold.Name = "tippingtreshold";
-            this.tippingtreshold.Size = new System.Drawing.Size(120, 20);
-            this.tippingtreshold.TabIndex = 12;
+            this.faucettresholdnumeric.Name = "faucettresholdnumeric";
+            this.faucettresholdnumeric.Size = new System.Drawing.Size(120, 20);
+            this.faucettresholdnumeric.TabIndex = 13;
             // 
-            // useprivatefaucetcheckbox
+            // label12
             // 
-            this.useprivatefaucetcheckbox.AutoSize = true;
-            this.useprivatefaucetcheckbox.Location = new System.Drawing.Point(6, 112);
-            this.useprivatefaucetcheckbox.Name = "useprivatefaucetcheckbox";
-            this.useprivatefaucetcheckbox.Size = new System.Drawing.Size(154, 17);
-            this.useprivatefaucetcheckbox.TabIndex = 5;
-            this.useprivatefaucetcheckbox.Text = "user private faucet (tipping)";
-            this.useprivatefaucetcheckbox.UseVisualStyleBackColor = true;
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(6, 71);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(75, 13);
+            this.label12.TabIndex = 14;
+            this.label12.Text = "faucet amount";
             // 
-            // dontfaucetfirstaccountcheckbox
+            // faucetamountnumeric
             // 
-            this.dontfaucetfirstaccountcheckbox.AutoSize = true;
-            this.dontfaucetfirstaccountcheckbox.Location = new System.Drawing.Point(6, 135);
-            this.dontfaucetfirstaccountcheckbox.Name = "dontfaucetfirstaccountcheckbox";
-            this.dontfaucetfirstaccountcheckbox.Size = new System.Drawing.Size(168, 17);
-            this.dontfaucetfirstaccountcheckbox.TabIndex = 6;
-            this.dontfaucetfirstaccountcheckbox.Text = "include first account as faucet";
-            this.dontfaucetfirstaccountcheckbox.UseVisualStyleBackColor = true;
+            this.faucetamountnumeric.Location = new System.Drawing.Point(124, 69);
+            this.faucetamountnumeric.Maximum = new decimal(new int[] {
+            -727379968,
+            232,
+            0,
+            0});
+            this.faucetamountnumeric.Name = "faucetamountnumeric";
+            this.faucetamountnumeric.Size = new System.Drawing.Size(120, 20);
+            this.faucetamountnumeric.TabIndex = 13;
             // 
             // Settings
             // 
@@ -481,7 +561,6 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.withdrawbox);
             this.Controls.Add(this.generalbox);
-            this.Controls.Add(this.multibotting);
             this.Controls.Add(this.safebutton);
             this.Controls.Add(this.discardbutton);
             this.Name = "Settings";
@@ -489,7 +568,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.difficultynumeric)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.safetynumeric)).EndInit();
             this.multibotting.ResumeLayout(false);
-            this.multibotting.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tippingtreshold)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.percenttotip)).EndInit();
             this.generalbox.ResumeLayout(false);
             this.generalbox.PerformLayout();
@@ -503,7 +582,12 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.minimumbetnumeric)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tippingtreshold)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.faucettresholdnumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.faucetamountnumeric)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -547,5 +631,11 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.CheckBox dontfaucetfirstaccountcheckbox;
         private System.Windows.Forms.CheckBox useprivatefaucetcheckbox;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.NumericUpDown faucetamountnumeric;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.NumericUpDown faucettresholdnumeric;
+        private System.Windows.Forms.Label label11;
     }
 }
