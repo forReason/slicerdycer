@@ -563,6 +563,7 @@
             this.Controls.Add(this.generalbox);
             this.Controls.Add(this.safebutton);
             this.Controls.Add(this.discardbutton);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Settings";
             this.Text = "Settings";
             ((System.ComponentModel.ISupportInitialize)(this.difficultynumeric)).EndInit();

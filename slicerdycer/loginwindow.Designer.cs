@@ -251,6 +251,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.loginbutton);
             this.Controls.Add(this.rememberbox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "loginwindow";
             this.Text = "login";
             this.groupBox1.ResumeLayout(false);
