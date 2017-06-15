@@ -55,19 +55,34 @@ namespace slicerdycer
             betting6.Text = GlobalVar.betting[5].ToString();
             groupBox6.Text = GlobalVar.user[5];
 
+            if (GlobalVar.pause == true)
+            {
+                pausestart.Text = "start";
+            }
+            else if (GlobalVar.pause == false && GlobalVar.pausing == false)
+            {
+                pausestart.Text = "pause";
+            }
+            else
+            {
+                pausestart.Text = "finishing bids...";
+            }
+
         }
         private void Pausestart_Click(object sender, EventArgs e)
         {
             if (GlobalVar.pause == true)
             {
                 GlobalVar.pause = false;
+                GlobalVar.pausing = false;
                 pausestart.Text = "pause";
                 backgroundWorker1.RunWorkerAsync();
             }
-            else
+            else if (GlobalVar.pause == false && GlobalVar.pausing == false)
             {
-                GlobalVar.pause = true;
-                pausestart.Text = "start";
+                GlobalVar.pause = false;
+                GlobalVar.pausing = true;
+                pausestart.Text = "finishing bids...";
             }
         }
 
@@ -75,10 +90,11 @@ namespace slicerdycer
         private void BackgroundWorker1_DoWork_1(object sender, DoWorkEventArgs e)
         {
             while (GlobalVar.pause == false)
-            {   
+            {
+                bool running_bots = false;
                 for (int i = 0; i<6; i++)
                 {
-                    if (GlobalVar.api[i] != "api_key")
+                    if (GlobalVar.api[i] != "api_key" && (GlobalVar.pausing == false || GlobalVar.positivetransaction[i] == false && GlobalVar.pausing == true))
                     {
                         //if balence = 0 -> update balance
                         if (GlobalVar.balance[i] == 0)
@@ -93,7 +109,14 @@ namespace slicerdycer
                             this.BeginInvoke(new InvokeDelegate(Updatevisual));
                             Thread.Sleep(1000);
                         }
+                        running_bots = true;
                     }
+                }
+                if (running_bots == false && GlobalVar.pausing == true)
+                {
+                    GlobalVar.pausing = false;
+                    GlobalVar.pause = true;
+                    this.BeginInvoke(new InvokeDelegate(Updatevisual));
                 }
             }
         }

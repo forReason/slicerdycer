@@ -22,6 +22,7 @@ namespace slicerdycer
         public static int[] betting = { 0, 0, 0, 0, 0, 0 };
         
         public static bool pause = true;
+        public static bool pausing = false;
         public static bool[] firstnegative = { true, true, true, true, true, true };
         public static bool[] positivetransaction = { true, true, true, true, true, true };
 
